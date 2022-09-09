@@ -1,0 +1,22 @@
+/* "order: 0;" - numerical ordering - low num == top / high num == bottom */
+/* "display: none;" - show or hide - comment == show / uncomment == hide */
+
+section#scan-container {
+    order: 2;
+    /* display: none; */
+}
+
+section#data-ribbon {
+    order: 3;
+    /* display: none; */
+}
+
+section#control-ribbon {
+    order: 1;
+    /* display: none; */
+}
+
+section#key-ribbon {
+    order: 99;
+    /* display: none; */
+}

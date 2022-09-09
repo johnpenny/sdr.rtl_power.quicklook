@@ -10,8 +10,7 @@
 A tool to render rtl_power CSV files as a canvas image. You can view the scan image, zoom into it, use a detail loupe to view a section of the scan, and use a pixel selector to view the data in individual readings.
 
 ### Features:
-- [x] Drop a file to render
-- [x] Multiple configs with a simple drop based UI
+- [x] Drop a file into a config box to render, or click a config box to select a file from disk
 - [x] Change the floor and ceil rendering values to pinpoint a dB value (must click rerender when changed)
 - [x] Custom configs in a simple editable format via a configs file
 - [x] Customisable rendering colours (via configs file)
@@ -50,6 +49,7 @@ I wanted a quick and easy way to view rtl_power scans.
 # How
 ### Online
 Go to https://quicklook.johnpenny.uk
+If you require some example scan files to run, please download them from the `rtl_power example scans` directory within this repo.
 
 ### On local network with web server
 1. Clone this repo into the web server sites directory

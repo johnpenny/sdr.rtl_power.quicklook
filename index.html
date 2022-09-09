@@ -1,0 +1,99 @@
+<html>
+    <head>
+        <!-- <base href="/Path/To/Repo/Dir/" /> -->
+
+        <title>rtl_power Quick Look • rtlpql</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+        <link rel="stylesheet" href="css/rtlpql.css">
+        <link rel="stylesheet" href="config/rtlpql_config.css">
+    </head>
+    <body>
+        <div id="console-messages">
+            <div id="console-p0" data-showing=""></div>
+            <div id="console-p1" data-showing=""></div>
+            <div id="console-p2" data-showing=""></div>
+        </div>
+        <main>
+            <section id="scan-container">
+                <div id="dropbox-container">
+                    <div id="dropbox-master" class="dropbox">
+                        <span class="material-symbols-rounded" data-icon="place_item"></span>
+                        <span class="label">Default Config</span>
+                        <input class="chooser" type="file" accept="text/csv">
+                    </div>
+                </div>
+                <div id="scan-loupe">
+                    <div id="scan-loupe-mousebox" class="mousebox">
+                        <canvas id="scan-loupe-canvas"></canvas>
+                        <div id="scan-loupe-sampler" class="sampler"></div>
+                    </div>
+                    <div id="scan-loupe-data" class="outlined"></div>
+                </div>
+                <div id="scan-scrollbox">
+                    <div id="scan-zoombox">
+                        <div id="scan-zoomer">
+                            <canvas id="scan-frequency-canvas"></canvas>
+                            <div id="scan-canvas-mousebox" class="mousebox">
+                                <canvas id="scan-canvas"></canvas>
+                                <div id="scan-canvas-sampler" class="sampler"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="data-ribbon" class="ribbon">
+            </section>
+            <section id="key-ribbon" class="ribbon">
+                <span id="ckey-f" class="ckey"></span> &ltFloor
+                • 
+                <span id="ckey-c" class="ckey"></span> &gtCeil
+                • 
+                <span id="ckey-n" class="ckey"></span> NaN
+                • 
+                <span id="ckey-p" class="ckey"></span> Power
+            </section>
+            <section id="control-ribbon" class="ribbon">
+                <div id="control-ribbon-vars">
+                    Floor:<span id="var-fi" class="var"></span>dB
+                    Ceil:<span id="var-ci" class="var"></span>dB
+                    Zoom:<span id="var-zi" class="var"></span>&times;
+                </div>
+                <div id="scan-control-ribbon-ctl">
+                    <span id="ctl-rr" data-icon="draw" class="button material-symbols-rounded">Rerender</span>
+                    <span id="ctl-f" data-icon="fullscreen" class="button material-symbols-rounded">Fullscreen</span>
+                    •
+                    <span id="ctl-fm" data-icon="dark_mode" class="button line dn material-symbols-rounded">F-</span>
+                    <span id="ctl-fp" data-icon="dark_mode" class="button fill up material-symbols-rounded">F+</span>
+                    •
+                    <span id="ctl-cm" data-icon="light_mode" class="button line dn material-symbols-rounded">C-</span>
+                    <span id="ctl-cp" data-icon="light_mode" class="button fill up material-symbols-rounded">C+</span>
+                    •
+                    <span id="ctl-zm" data-icon="zoom_out" class="button out material-symbols-rounded">Z-</span>
+                    <span id="ctl-zp" data-icon="zoom_in" class="button in material-symbols-rounded">Z+</span>
+                    •
+                    <span id="ctl-if" data-icon="download_for_offline" class="button material-symbols-rounded">No&lt;F</span>
+                    <span id="ctl-dc" data-icon="layers" class="button material-symbols-rounded">No Clear</span>
+                </div>
+            </section>
+            <section id="readme-ribbon" class="ribbon">
+                README • Please drop a .csv file from rtl_power into a dropbox, or click one, to begin • <a href="http://kmkeen.com/rtl-power/" target="_blank" class="button txt">rtl_power instructions</a>
+            </section>
+            <section id="info-ribbon" class="ribbon">
+                rtl_power Quick Look • © John Penny 2022 • <a href="https://quicklook.johnpenny.uk/" target="_blank" class="button txt">Web</a> • <a href="https://github.com/johnpenny/sdr.rtl_power.quicklook" target="_blank" class="button txt">GitHub</a>
+            </section>
+        </main>
+        <div id="colour"></div>
+    </body>
+    <script src="js/libs/papaparse.min.js" ></script>
+    <script src="js/rtlpql.js"></script>
+    <script src="config/rtlpql_config.js"></script>
+    <script>
+        rtlpql.run(rtlpqlConfigs);
+    </script>
+</html>
