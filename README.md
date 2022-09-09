@@ -48,7 +48,7 @@ I wanted a quick and easy way to view rtl_power scans.
 
 # How
 ### Online
-Go to https://quicklook.johnpenny.uk
+Go to https://quicklook.johnpenny.uk    
 If you require some example scan files to run, please download them from the `rtl_power example scans` directory within this repo.
 
 ### On local network with web server
