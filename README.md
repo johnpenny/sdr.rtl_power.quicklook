@@ -2,7 +2,7 @@
 ---
 
 # sdr.rtl_power.quicklook
-### Software Defined Radio • rtl_power • Quick Look • (rtlpql)
+### Software Defined Radio • rtl_power • Quick Look • rtlpql
 
 ---
 
