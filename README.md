@@ -51,13 +51,6 @@ I wanted a quick and easy way to view rtl_power scans.
 ### Online
 Go to https://quicklook.johnpenny.uk
 
-
-**NOTE: Zeroconf networking (Bonjour et al) is worth installing if you are on a Linux or Windows machine and often access local network machines.**
-* Linux: Install the apt package 'avahi-daemon'
-* Windows: First check that no other app has installed it for you, Install iTunes, or https://support.apple.com/kb/DL999
-* Mac OS: Already installed
-
-
 ### On local network with web server
 1. Clone this repo into the web server sites directory
 1. Set up the site to be served in the web server config
@@ -74,3 +67,8 @@ The directory `/config/rtlpql_config.js` allows you to add new config objects. P
 1. Open the index.html file in a web browser
 1. Optionally add additional configs
 The directory `/config/rtlpql_config.js` allows you to add new config objects. Please make sure they have a unique name.
+
+**NOTE: Zeroconf networking (Bonjour et al) is worth installing if you are on a Linux or Windows machine and often access local network machines.**
+* Linux: Install the apt package 'avahi-daemon'
+* Windows: First check that no other app has installed it for you, Install iTunes, or https://support.apple.com/kb/DL999
+* Mac OS: Already installed
