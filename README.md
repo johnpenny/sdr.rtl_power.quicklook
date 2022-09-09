@@ -28,7 +28,6 @@ A tool to render rtl_power CSV files as a canvas image. You can view the scan im
 - [x] A scan summary is generated for quick understanding of the scan's properties
 
 ### Known Issues to Fix:
-- [ ] Touch dragging on the sampler is not yet implemented
 - [ ] If the sampler box exits the scrollbox, the scrollbox does not move with it
 - [ ] If the scan is short or shallow the sampler does not resize to function correctly
 - [ ] If the scan has very small bins, the bin data canvas will not be readable
