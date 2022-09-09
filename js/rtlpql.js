@@ -541,54 +541,48 @@ var rtlpql = (function() {
                 _handleFloorEvent(control.floorMinus);
             }, app.ctlInterval);
         }, false);
-        dom.ctl.floorMinus.addEventListener('mouseup', (event) => {
-            clearInterval(app.ctlIntervalID);
-        }, false);
+        dom.ctl.floorMinus.addEventListener('mouseup', clearCtlInterval, false);
+        dom.ctl.floorMinus.addEventListener('mouseleave', clearCtlInterval, false);
 
         dom.ctl.floorPlus.addEventListener('mousedown', (event) => {
             app.ctlIntervalID = setInterval(() => {
                 _handleFloorEvent(control.floorPlus);
             }, app.ctlInterval);
         }, false);
-        dom.ctl.floorPlus.addEventListener('mouseup', (event) => {
-            clearInterval(app.ctlIntervalID);
-        }, false);
+        dom.ctl.floorPlus.addEventListener('mouseup', clearCtlInterval, false);
+        dom.ctl.floorPlus.addEventListener('mouseleave', clearCtlInterval, false);
 
         dom.ctl.ceilMinus.addEventListener('mousedown', (event) => {
             app.ctlIntervalID = setInterval(() => {
                 _handleCeilEvent(control.ceilMinus);
             }, app.ctlInterval);
         }, false);
-        dom.ctl.ceilMinus.addEventListener('mouseup', (event) => {
-            clearInterval(app.ctlIntervalID);
-        }, false);
+        dom.ctl.ceilMinus.addEventListener('mouseup', clearCtlInterval, false);
+        dom.ctl.ceilMinus.addEventListener('mouseleave', clearCtlInterval, false);
 
         dom.ctl.ceilPlus.addEventListener('mousedown', (event) => {
             app.ctlIntervalID = setInterval(() => {
                 _handleCeilEvent(control.ceilPlus);
             }, app.ctlInterval);
         }, false);
-        dom.ctl.ceilPlus.addEventListener('mouseup', (event) => {
-            clearInterval(app.ctlIntervalID);
-        }, false);
+        dom.ctl.ceilPlus.addEventListener('mouseup', clearCtlInterval, false);
+        dom.ctl.ceilPlus.addEventListener('mouseleave', clearCtlInterval, false);
 
         dom.ctl.zoomMinus.addEventListener('mousedown', (event) => {
             app.ctlIntervalID = setInterval(() => {
                 _handleZoomEvent(control.zoomMinus);
             }, app.ctlInterval);
         }, false);
-        dom.ctl.zoomMinus.addEventListener('mouseup', (event) => {
-            clearInterval(app.ctlIntervalID);
-        }, false);
+        dom.ctl.zoomMinus.addEventListener('mouseup', clearCtlInterval, false);
+        dom.ctl.zoomMinus.addEventListener('mouseleave', clearCtlInterval, false);
 
         dom.ctl.zoomPlus.addEventListener('mousedown', (event) => {
             app.ctlIntervalID = setInterval(() => {
                 _handleZoomEvent(control.zoomPlus);
             }, app.ctlInterval);
         }, false);
-        dom.ctl.zoomPlus.addEventListener('mouseup', (event) => {
-            clearInterval(app.ctlIntervalID);
-        }, false);
+        dom.ctl.zoomPlus.addEventListener('mouseup', clearCtlInterval, false);
+        dom.ctl.zoomPlus.addEventListener('mouseleave', clearCtlInterval, false);
 
         dom.ctl.rerender.addEventListener('click', (event) => {
             _handleRerenderEvent();
@@ -609,6 +603,13 @@ var rtlpql = (function() {
         dom.app.scan.addEventListener('fullscreenchange', (event) => {
             _handleFullscreenEvent(event);
         }, false);
+
+        ////
+
+        function clearCtlInterval()
+        {
+            clearInterval(app.ctlIntervalID);
+        }
     }
 
     function _initDataRibbon()
