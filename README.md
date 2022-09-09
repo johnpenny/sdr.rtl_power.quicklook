@@ -50,11 +50,11 @@ I wanted a quick and easy way to view rtl_power scans.
 # How
 **NOTE: Zeroconf networking (Bonjour et al) is worth installing if you are on a Linux or Windows machine and often access local network machines.**
 * Linux: Install the apt package 'avahi-daemon'
-* Windows: First check that no other app has installed it for you, Install iTunes, or (https://support.apple.com/kb/DL999)[https://support.apple.com/kb/DL999]
+* Windows: First check that no other app has installed it for you, Install iTunes, or https://support.apple.com/kb/DL999
 * Mac OS: Already installed
 
 ### Online
-Go to (https://quicklook.johnpenny.uk)[https://quicklook.johnpenny.uk]
+Go to https://quicklook.johnpenny.uk
 
 ### On local network with web server
 1. Clone this repo into the web server sites directory
