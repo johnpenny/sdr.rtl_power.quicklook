@@ -1,0 +1,5 @@
+# Exclude dir
+nogit/
+
+# MACOS Finder
+.DS_Store
