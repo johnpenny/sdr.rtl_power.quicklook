@@ -12,6 +12,7 @@
 ////////////////////////////////////////////////////////////
 
 // KNOWN ISSUES TO FIX
+// Touch dragging on the sampler is not yet implemented
 // If the sampler box exits the scrollbox, the scrollbox does not move with it
 // If the scan is short or shallow the sampler does not resize to function correctly
 // If the scan has very small bins, the bin data canvas will not be readable
@@ -589,6 +590,64 @@ var rtlpql = (function() {
             clearInterval(app.ctlIntervalID);
         }, false);
 
+        //
+
+        dom.ctl.floorMinus.addEventListener('touchstart', (event) => {
+            app.ctlIntervalID = setInterval(() => {
+                _handleFloorEvent(control.floorMinus);
+            }, app.ctlInterval);
+        }, false);
+        dom.ctl.floorMinus.addEventListener('touchend', (event) => {
+            clearInterval(app.ctlIntervalID);
+        }, false);
+
+        dom.ctl.floorPlus.addEventListener('touchstart', (event) => {
+            app.ctlIntervalID = setInterval(() => {
+                _handleFloorEvent(control.floorPlus);
+            }, app.ctlInterval);
+        }, false);
+        dom.ctl.floorPlus.addEventListener('touchend', (event) => {
+            clearInterval(app.ctlIntervalID);
+        }, false);
+
+        dom.ctl.ceilMinus.addEventListener('touchstart', (event) => {
+            app.ctlIntervalID = setInterval(() => {
+                _handleCeilEvent(control.ceilMinus);
+            }, app.ctlInterval);
+        }, false);
+        dom.ctl.ceilMinus.addEventListener('touchend', (event) => {
+            clearInterval(app.ctlIntervalID);
+        }, false);
+
+        dom.ctl.ceilPlus.addEventListener('touchstart', (event) => {
+            app.ctlIntervalID = setInterval(() => {
+                _handleCeilEvent(control.ceilPlus);
+            }, app.ctlInterval);
+        }, false);
+        dom.ctl.ceilPlus.addEventListener('touchend', (event) => {
+            clearInterval(app.ctlIntervalID);
+        }, false);
+
+        dom.ctl.zoomMinus.addEventListener('touchstart', (event) => {
+            app.ctlIntervalID = setInterval(() => {
+                _handleZoomEvent(control.zoomMinus);
+            }, app.ctlInterval);
+        }, false);
+        dom.ctl.zoomMinus.addEventListener('touchend', (event) => {
+            clearInterval(app.ctlIntervalID);
+        }, false);
+
+        dom.ctl.zoomPlus.addEventListener('touchstart', (event) => {
+            app.ctlIntervalID = setInterval(() => {
+                _handleZoomEvent(control.zoomPlus);
+            }, app.ctlInterval);
+        }, false);
+        dom.ctl.zoomPlus.addEventListener('touchend', (event) => {
+            clearInterval(app.ctlIntervalID);
+        }, false);
+
+        //
+
         dom.ctl.rerender.addEventListener('click', (event) => {
             _handleRerenderEvent();
         }, false);
@@ -862,6 +921,8 @@ var rtlpql = (function() {
         const pixelGridDelta = (gridMultiplied) ? render.samplerMagnification : 1; // not 1:1 pixel grid
 
         ////
+
+        // TODO implement touchmove for moving the sampler
 
         mousebox.addEventListener('mousedown', (event) => {
             mousebox.setAttribute('data-dragging', 'true');
