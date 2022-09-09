@@ -48,13 +48,15 @@ I wanted a quick and easy way to view rtl_power scans.
 
 
 # How
+### Online
+Go to https://quicklook.johnpenny.uk
+
+
 **NOTE: Zeroconf networking (Bonjour et al) is worth installing if you are on a Linux or Windows machine and often access local network machines.**
 * Linux: Install the apt package 'avahi-daemon'
 * Windows: First check that no other app has installed it for you, Install iTunes, or https://support.apple.com/kb/DL999
 * Mac OS: Already installed
 
-### Online
-Go to https://quicklook.johnpenny.uk
 
 ### On local network with web server
 1. Clone this repo into the web server sites directory
@@ -64,8 +66,8 @@ Go to https://quicklook.johnpenny.uk
 The directory `/config/rtlpql_config.js` allows you to add new config objects. Please make sure they have a unique name.
 
 ### Locally with no web server
-1. Clone this repo onto a disk
-1. Open the directory and then open index.html in a text editor
+1. Clone this repo onto a disk, or download it as a zip file
+1. Go to repo directory, and then open index.html in a text editor
 1. Find the line `<!-- <base href="/Path/To/Repo/Dir/" /> -->` which should be line 3
 1. Remove the comment chars `<!--  -->` leaving `<base href="/Path/To/Repo/Dir/" />`
 1. Edit the path to match the path to the repo directory on your disk. For example `<base href="/Users/name/SDR/rtlpql/" />`
