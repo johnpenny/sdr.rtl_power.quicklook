@@ -501,115 +501,100 @@ var rtlpql = (function() {
 
     function _setUpEvents()
     {
-        dom.body.addEventListener('dragover', (event) => {
-            event.preventDefault(); // prevent built in browser handlers
-        }, false);
+        // prevent default actions
+        dom.body.addEventListener('dragover', preventDefault, false);
+        dom.body.addEventListener('drop', preventDefault, false);
 
-        dom.body.addEventListener('drop', (event) => {
-            event.preventDefault(); // prevent built in browser handlers
-        }, false);
+        // wheel controls
+        dom.ctl.ceilPlus.addEventListener('wheel', _handleCeilEvent, {capture: false, passive: false});
+        dom.ctl.ceilMinus.addEventListener('wheel', _handleCeilEvent, {capture: false, passive: false});
+        dom.ctl.floorPlus.addEventListener('wheel', _handleFloorEvent, {capture: false, passive: false});
+        dom.ctl.floorMinus.addEventListener('wheel', _handleFloorEvent, {capture: false, passive: false});
+        dom.ctl.zoomPlus.addEventListener('wheel', _handleZoomEvent, {capture: false, passive: false});
+        dom.ctl.zoomMinus.addEventListener('wheel', _handleZoomEvent, {capture: false, passive: false});
 
-        dom.ctl.zoomPlus.addEventListener('wheel', (event) => {
-            event.preventDefault();
-            const k = (event.deltaY > 0) ? control.zoomPlus : control.zoomMinus;
-            _handleZoomEvent(k);
-        }, {capture: false, passive: false});
-
-        dom.ctl.zoomMinus.addEventListener('wheel', (event) => {
-            event.preventDefault();
-            const k = (event.deltaY > 0) ? control.zoomPlus : control.zoomMinus;
-            _handleZoomEvent(k);
-        }, {capture: false, passive: false});
-
-        // keys
-        dom.doc.addEventListener('keydown', (event) => {
-            if (app.state != appStates.rendering) return; // abort if not in rendering state
-            let k = event.key;
-            if (k === control.fullscreen) _handleFullscreenEvent(event);
-            if (k === control.zoomPlus || k === control.zoomMinus) _handleZoomEvent(k);
-            if (k === control.floorPlus || k === control.floorMinus) _handleFloorEvent(k);
-            if (k === control.ceilPlus || k === control.ceilMinus) _handleCeilEvent(k);
-            if (k === control.rerender) _handleRerenderEvent();
-            if (k === control.discardFloor) render.discardFloor = _handleBoolEvent(dom.ctl.discardFloor, render.discardFloor);
-            if (k === control.dontClear) render.dontClear = _handleBoolEvent(dom.ctl.dontClear, render.dontClear);
-        }, false);
-
+        // keyboard keys
+        dom.doc.addEventListener('keydown', _handleKeyboardEvent, false);
         
-        // buttons
-        dom.ctl.floorMinus.addEventListener('mousedown', (event) => {
-            app.ctlIntervalID = setInterval(() => {
-                _handleFloorEvent(control.floorMinus);
-            }, app.ctlInterval);
+        // UI buttons
+        dom.ctl.floorMinus.addEventListener('mousedown', (e) => {
+            e.key = control.floorMinus;
+            eventAtInterval(e, _handleFloorEvent);
         }, false);
         dom.ctl.floorMinus.addEventListener('mouseup', clearCtlInterval, false);
         dom.ctl.floorMinus.addEventListener('mouseleave', clearCtlInterval, false);
 
-        dom.ctl.floorPlus.addEventListener('mousedown', (event) => {
-            app.ctlIntervalID = setInterval(() => {
-                _handleFloorEvent(control.floorPlus);
-            }, app.ctlInterval);
+        dom.ctl.floorPlus.addEventListener('mousedown', (e) => {
+            e.key = control.floorPlus;
+            eventAtInterval(e, _handleFloorEvent);
         }, false);
         dom.ctl.floorPlus.addEventListener('mouseup', clearCtlInterval, false);
         dom.ctl.floorPlus.addEventListener('mouseleave', clearCtlInterval, false);
 
-        dom.ctl.ceilMinus.addEventListener('mousedown', (event) => {
-            app.ctlIntervalID = setInterval(() => {
-                _handleCeilEvent(control.ceilMinus);
-            }, app.ctlInterval);
+        dom.ctl.ceilMinus.addEventListener('mousedown', (e) => {
+            e.key = control.ceilMinus;
+            eventAtInterval(e, _handleCeilEvent);
         }, false);
         dom.ctl.ceilMinus.addEventListener('mouseup', clearCtlInterval, false);
         dom.ctl.ceilMinus.addEventListener('mouseleave', clearCtlInterval, false);
 
-        dom.ctl.ceilPlus.addEventListener('mousedown', (event) => {
-            app.ctlIntervalID = setInterval(() => {
-                _handleCeilEvent(control.ceilPlus);
-            }, app.ctlInterval);
+        dom.ctl.ceilPlus.addEventListener('mousedown', (e) => {
+            e.key = control.ceilPlus;
+            eventAtInterval(e, _handleCeilEvent);
         }, false);
         dom.ctl.ceilPlus.addEventListener('mouseup', clearCtlInterval, false);
         dom.ctl.ceilPlus.addEventListener('mouseleave', clearCtlInterval, false);
 
-        dom.ctl.zoomMinus.addEventListener('mousedown', (event) => {
-            app.ctlIntervalID = setInterval(() => {
-                _handleZoomEvent(control.zoomMinus);
-            }, app.ctlInterval);
+        dom.ctl.zoomMinus.addEventListener('mousedown', (e) => {
+            e.key = control.zoomMinus;
+            eventAtInterval(e, _handleZoomEvent);
         }, false);
         dom.ctl.zoomMinus.addEventListener('mouseup', clearCtlInterval, false);
         dom.ctl.zoomMinus.addEventListener('mouseleave', clearCtlInterval, false);
 
-        dom.ctl.zoomPlus.addEventListener('mousedown', (event) => {
-            app.ctlIntervalID = setInterval(() => {
-                _handleZoomEvent(control.zoomPlus);
-            }, app.ctlInterval);
+        dom.ctl.zoomPlus.addEventListener('mousedown', (e) => {
+            e.key = control.zoomPlus;
+            eventAtInterval(e, _handleZoomEvent);
         }, false);
         dom.ctl.zoomPlus.addEventListener('mouseup', clearCtlInterval, false);
         dom.ctl.zoomPlus.addEventListener('mouseleave', clearCtlInterval, false);
 
-        dom.ctl.rerender.addEventListener('click', (event) => {
-            _handleRerenderEvent();
+        // rerender
+        dom.ctl.rerender.addEventListener('click', _handleRerenderEvent, false);
+
+        // discard floor bool
+        dom.ctl.discardFloor.addEventListener('click', (e) => {
+            render.discardFloor = _flipBoolButton(dom.ctl.discardFloor, render.discardFloor);
         }, false);
 
-        dom.ctl.discardFloor.addEventListener('click', (event) => {
-            render.discardFloor = _handleBoolEvent(dom.ctl.discardFloor, render.discardFloor);
+        // don't clear bool
+        dom.ctl.dontClear.addEventListener('click', (e) => {
+            render.dontClear = _flipBoolButton(dom.ctl.dontClear, render.dontClear);
         }, false);
 
-        dom.ctl.dontClear.addEventListener('click', (event) => {
-            render.dontClear = _handleBoolEvent(dom.ctl.dontClear, render.dontClear);
-        }, false);
-
-        dom.ctl.fullscreen.addEventListener('click', (event) => {
-            _handleFullscreenEvent(event);
-        }, false);
-
-        dom.app.scan.addEventListener('fullscreenchange', (event) => {
-            _handleFullscreenEvent(event);
-        }, false);
+        // fullscreen
+        dom.ctl.fullscreen.addEventListener('click', _handleFullscreenEvent, false);
+        dom.app.scan.addEventListener('fullscreenchange', _handleFullscreenEvent, false);
 
         ////
 
-        function clearCtlInterval()
+        function eventAtInterval(e, func)
+        {
+            app.ctlIntervalID = setInterval(() => {
+                func(e);
+            }, app.ctlInterval);
+        }
+
+        function clearCtlInterval(e)
         {
             clearInterval(app.ctlIntervalID);
         }
+
+        function preventDefault(e)
+        {
+            e.preventDefault(); // just prevent built in browser handlers
+        }
+
     }
 
     function _initDataRibbon()
@@ -1100,15 +1085,17 @@ var rtlpql = (function() {
 
     // EVENT HANDLERS
 
-    function _handleBoolEvent(el, b)
+    function _flipBoolButton(el, b)
     {
         el.classList.replace((b ? 'on' : 'off'), (b ? 'off' : 'on'));
         return !b;
     }
 
-    function _handleFloorEvent(k)
+    function _handleFloorEvent(e)
     {
-        if (k === control.floorPlus)
+        e.preventDefault();
+
+        if (e.key === control.floorPlus || e.deltaY > 0)
         {
             if (Number(render.dBFloor) + Number(render.dBStep) < Number(render.dBCeil))
             {
@@ -1117,7 +1104,7 @@ var rtlpql = (function() {
             }
         }
         
-        if (k === control.floorMinus)
+        if (e.key === control.floorMinus || e.deltaY < 0)
         {
             if (Number(render.dBFloor) - Number(render.dBStep) > Number(scan.dBMin))
             {
@@ -1134,8 +1121,11 @@ var rtlpql = (function() {
         _updateControlRibbon();
     }
 
-    function _handleCeilEvent(k) {
-        if (k === control.ceilPlus)
+    function _handleCeilEvent(e) {
+
+        e.preventDefault();
+
+        if (e.key === control.ceilPlus || e.deltaY > 0)
         {
             if (Number(render.dBCeil) + Number(render.dBStep) < Number(scan.dBMax))
             {
@@ -1149,7 +1139,7 @@ var rtlpql = (function() {
             }
         }
         
-        if (k === control.ceilMinus)
+        if (e.key === control.ceilMinus || e.deltaY < 0)
         {
             if (Number(render.dBCeil) - Number(render.dBStep) > Number(render.dBFloor))
             {
@@ -1161,10 +1151,47 @@ var rtlpql = (function() {
         _updateControlRibbon();
     }
 
-    function _handleZoomEvent(k)
+    function _handleKeyboardEvent(e)
     {
-        if (k === control.zoomPlus) render.zoom += render.zoomStep;
-        if (k === control.zoomMinus) render.zoom = (render.zoom - render.zoomStep < 1 ? 1 : render.zoom - render.zoomStep);
+        if (app.state != appStates.rendering) return; // abort if not in rendering state
+
+        switch (e.key) {
+            case control.zoomMinus:
+            case control.zoomPlus:
+                _handleZoomEvent(e);
+                break;
+            case control.floorPlus:
+            case control.floorMinus:
+                _handleFloorEvent(e);
+                break;
+            case control.ceilPlus:
+            case control.ceilMinus:
+                _handleCeilEvent(e);
+                break;
+            case control.fullscreen:
+                _handleFullscreenEvent(e);
+                break;
+            case control.rerender:
+                _handleRerenderEvent();
+                break;
+            case control.discardFloor:
+                render.discardFloor = _flipBoolButton(dom.ctl.discardFloor, render.discardFloor);
+                break;
+            case control.dontClear:
+                render.dontClear = _flipBoolButton(dom.ctl.dontClear, render.dontClear);
+                break;
+            default:
+                //
+                break;
+        }
+    }
+
+    function _handleZoomEvent(e)
+    {
+        e.preventDefault();
+
+        if (e.key === control.zoomPlus || e.deltaY > 0) render.zoom += render.zoomStep;
+        if (e.key === control.zoomMinus || e.deltaY < 0) render.zoom = (render.zoom - render.zoomStep < 1 ? 1 : render.zoom - render.zoomStep);
 
         dom.app.scanZoom.style.transform = `scale(${render.zoom})`;
         
@@ -1182,13 +1209,13 @@ var rtlpql = (function() {
         setTimeout(_rerenderScan); // await to allow DOM reflow (console msg)
     }
 
-    function _handleFullscreenEvent(event)
+    function _handleFullscreenEvent(e)
     {
-        if (event.type === 'click' || event.type === 'keydown')
+        if (e.type === 'click' || e.type === 'keydown')
         {
             dom.app.scan.requestFullscreen();
         }
-        else if (event.type === 'fullscreenchange')
+        else if (e.type === 'fullscreenchange')
         {
             if (dom.doc.fullscreenElement)
             {
@@ -1251,29 +1278,29 @@ var rtlpql = (function() {
 })();
     
 const papaParseConfig = {
-	delimiter: "", // auto	
-	newline: "",	// auto
-	quoteChar: '"',
-	escapeChar: '"',
-	header: false,
-	transformHeader: undefined,
-	dynamicTyping: false,
-	preview: 0,
-	encoding: "",
-	worker: false,
-	comments: false,
+    delimiter: "", // auto	
+    newline: "",	// auto
+    quoteChar: '"',
+    escapeChar: '"',
+    header: false,
+    transformHeader: undefined,
+    dynamicTyping: false,
+    preview: 0,
+    encoding: "",
+    worker: false,
+    comments: false,
     step: function(results, parser) { rtlpql.parsedRow(results) },
-	complete: function(results, parser) { rtlpql.parsed() },
-	error: undefined,
-	download: false,
-	downloadRequestHeaders: undefined,
-	downloadRequestBody: undefined,
-	skipEmptyLines: false,
-	chunk: undefined,
-	chunkSize: undefined,
-	fastMode: true,
-	beforeFirstChunk: undefined,
-	withCredentials: undefined,
-	transform: undefined,
-	delimitersToGuess: [',', '\t', '|', ';', Papa.RECORD_SEP, Papa.UNIT_SEP]
+    complete: function(results, parser) { rtlpql.parsed() },
+    error: undefined,
+    download: false,
+    downloadRequestHeaders: undefined,
+    downloadRequestBody: undefined,
+    skipEmptyLines: false,
+    chunk: undefined,
+    chunkSize: undefined,
+    fastMode: true,
+    beforeFirstChunk: undefined,
+    withCredentials: undefined,
+    transform: undefined,
+    delimitersToGuess: [',', '\t', '|', ';', Papa.RECORD_SEP, Papa.UNIT_SEP]
 }
