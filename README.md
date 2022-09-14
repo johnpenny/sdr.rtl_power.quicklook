@@ -34,6 +34,7 @@ A tool to render rtl_power CSV files as a canvas image. You can view the scan im
 - [ ] If the scan has very small bins, the bin data canvas will not be readable
 
 ### Roadmap (absolutely no timescale suggested, may never happen):
+- [ ] Rerender the loupe and sampled pixel on changes to ceil/floor so you don't have to rerender all
 - [ ] Save to img (canvas and frequency bar)
 - [ ] Remote CSV files via URI
 - [ ] Allow creating and saving configs to localdata

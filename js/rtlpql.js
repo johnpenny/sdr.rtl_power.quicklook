@@ -3,6 +3,7 @@
 ////////////////////////////////////////////////////////////
 
 // IDEAS
+// rerender the loupe and sampled pixel on changes to ceil/floor so you don't have to rerender all
 // save to img (canvas and frequency bar)
 // remote CSV files via URI
 // allow creating and saving configs to localdata
