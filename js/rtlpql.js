@@ -753,7 +753,7 @@ var rtlpql = (function() {
         const suffix = 'MHz';
         const c = render.frequency;
         const pad = 1;
-        const fontSize = scan.binDataCount * .5; // remember data points == pixels
+        const fontSize = (scan.binDataCount * .5 < h) ? scan.binDataCount * .5 : h; // remember data points == pixels
         c.font = fontSize + 'px monospace';
 
         for (let i = 0; i < scan.sweepBinCount; i++)
