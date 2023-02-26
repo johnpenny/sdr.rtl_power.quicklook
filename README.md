@@ -1,4 +1,4 @@
-[User Guide](#User_Guide) | [What](#What) | [Why](#Why) | [How](#How)
+[User Guide](#user-guide) | [What](#What) | [Why](#Why) | [How](#How)
 ---
 
 # sdr.rtl_power.quicklook
